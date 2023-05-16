@@ -20,10 +20,14 @@ type DBCredential struct {
 
 //TODO: masukkan CAMP_ID kalian dan Credential Database kalian disini
 var (
-	CAMP_ID = "" // TODO: replace this
+	CAMP_ID = "BE4250856" // TODO: replace this
 
 	credential = DBCredential{
-		// TODO: answer here
+		HostName:     "localhost",
+        DatabaseName: "rg_database",
+        Username:     "postgres",
+        Password:     "root",
+        Port:         "5432",
 	}
 )
 
@@ -32,7 +36,10 @@ func Connection() (db *sql.DB, err error) {
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		credential.HostName, credential.Port, credential.Username, credential.Password, credential.DatabaseName)
 
-	// TODO: answer here
+	db, err = sql.Open("postgres", psqlInfo)
+	if err!= nil {
+        log.Fatal(err)
+    }
 
 	err = db.Ping()
 	if err != nil {
